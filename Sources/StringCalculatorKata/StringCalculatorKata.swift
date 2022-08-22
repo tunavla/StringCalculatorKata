@@ -5,6 +5,7 @@ enum StringCalculatorError: Error {
 }
 
 public class StringCalculator {
+    let maxNumber = 1 000
 
     func add(_ str: String) throws -> Int {
         if let negativeNumber = findNegative(str) {
@@ -13,8 +14,10 @@ public class StringCalculator {
         }
         let subStr = str.components(separatedBy:  CharacterSet.decimalDigits.inverted)
 
-        return subStr.reduce(0) { $0 + $1.intValue }
-
+        return subStr
+            .map { $0.intValue }
+            .filter { $0 <= maxNumber }
+            .reduce(0, +)
     }
 
     func findNegative(_ str: String) -> String? {
