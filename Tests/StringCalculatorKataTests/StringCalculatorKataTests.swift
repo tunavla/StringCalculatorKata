@@ -11,4 +11,9 @@ final class StringCalculatorTests: XCTestCase {
     func test_addEmpty_returnZero() {
         XCTAssertEqual(sut.add(""), 0)
     }
+
+    func test_addOneNumber_returnThisNumber() {
+        XCTAssertEqual(sut.add("1"), 1)
+        XCTAssertEqual(sut.add("2"), 2)
+    }
 }
