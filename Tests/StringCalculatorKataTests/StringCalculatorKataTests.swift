@@ -58,8 +58,13 @@ final class StringCalculatorTests: XCTestCase {
         }
     }
 
-    func test_stringContain2_1001_returnErrorWithNumbers() throws {
+    func test_stringContain2_1001_returnSum() throws {
         XCTAssertEqual(try sut.add("1001,2"), 2)
+    }
+
+    func test_differentDelimiters_returnSum() {
+        XCTAssertEqual(try sut.add("//[|||]\n1|||2|||3"), 6)
+        XCTAssertEqual(try sut.add("//[|][%]\n1|2%3"), 6)
     }
 
     private func generateBigLine(_ number: Int,_ count: Int) -> String {
