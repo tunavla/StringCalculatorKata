@@ -7,7 +7,7 @@ enum StringCalculatorError: Error {
 public class StringCalculator {
 
     func add(_ str: String) throws -> Int {
-        if let negativeNumber = str.findNegative() {
+        if let negativeNumber = findNegative(str) {
             throw StringCalculatorError
                 .containNegative("Negatives not allowed: " + negativeNumber)
         }
@@ -16,43 +16,45 @@ public class StringCalculator {
         return subStr.reduce(0) { $0 + $1.intValue }
 
     }
-    
+
+    func findNegative(_ str: String) -> String? {
+        let resultDict = getNegativeNumbers(str: str)
+        let resultString = resultDict.compactMap { $0 }.joined(separator: ",")
+        return resultString.isEmpty ? nil : resultString
+    }
+
+    private func getNegativeNumbers(str: String) -> [String?] {
+        var result: [String?] = []
+        for char in str {
+            if char == "-" {
+                result.append("-")
+            } else if let last = result.last {
+                if char.isInt {
+                    if let lastValue = last {
+                        let newValue = lastValue + String(char)
+                        result.removeLast()
+                        result.append(newValue)
+                    }
+                } else {
+                    if last == "-" {
+                        result.removeLast()
+                    } else if (last ?? "").count > 1 {
+                        result.append(nil)
+                    }
+                }
+            }
+        }
+        return result
+    }
 }
 
-extension String {
+private extension String {
     var intValue: Int {
         Int(self) ?? 0
     }
 
     var isInt: Bool {
         Int(self) != nil
-    }
-
-    func findNegative() -> String? {
-        var result: [String?] = []
-
-        forLoop: for char in self {
-            if char == "-" {
-                result.append("-")
-            } else if char.isInt {
-                if let last = result.last,
-                   let lastValue = last
-                {
-                    let newValue = lastValue + String(char)
-                    result.removeLast()
-                    result.append(newValue)
-                }
-            } else if !char.isInt, result.last == "-" {
-                result.removeLast()
-            } else if !char.isInt,
-                let last = result.last ?? "",
-               last.count > 1
-            {
-                result.append(nil)
-            }
-        }
-        let resultString = result.compactMap { $0 }.joined(separator: ",")
-        return resultString.isEmpty ? nil : resultString
     }
 
 }
