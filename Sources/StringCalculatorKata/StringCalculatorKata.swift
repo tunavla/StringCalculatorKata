@@ -2,7 +2,9 @@ import Foundation
 public class StringCalculator {
 
     func add(_ str: String) -> Int {
-        let strWithCommas = str.replacingOccurrences(of: "\n", with: ",")
+        let strWithCommas = str
+            .replacingOccurrences(of: "\n", with: ",")
+            .replacingOccurrences(of: ";", with: ",")
         let subStr = strWithCommas.components(separatedBy: ",")
         return subStr.reduce(0) { $0 + $1.intValue }
     }
