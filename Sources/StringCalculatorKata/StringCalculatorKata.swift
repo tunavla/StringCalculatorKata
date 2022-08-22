@@ -20,7 +20,7 @@ public class StringCalculator {
             .reduce(0, +)
     }
 
-    func findNegative(_ str: String) -> String? {
+    private func findNegative(_ str: String) -> String? {
         let resultDict = getNegativeNumbers(str: str)
         let resultString = resultDict.compactMap { $0 }.joined(separator: ",")
         return resultString.isEmpty ? nil : resultString
@@ -57,9 +57,4 @@ private extension String {
     var intValue: Int {
         Int(self) ?? 0
     }
-
-    var isInt: Bool {
-        Int(self) != nil
-    }
-
 }
