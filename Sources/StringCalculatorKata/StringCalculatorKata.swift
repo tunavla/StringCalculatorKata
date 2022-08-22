@@ -1,7 +1,13 @@
 public class StringCalculator {
 
     func add(_ str: String) -> Int {
-        Int(str) ?? 0
+        str.split(separator: ",").reduce(0) { $0 + $1.intValue }
     }
     
+}
+
+extension Substring {
+    var intValue: Int {
+        Int(self) ?? 0
+    }
 }
