@@ -1,11 +1,10 @@
 import XCTest
 @testable import StringCalculatorKata
 
-final class StringCalculatorKataTests: XCTestCase {
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(StringCalculatorKata().text, "Hello, World!")
+final class StringCalculatorTests: XCTestCase {
+    private var sut: StringCalculator!
+    override func setUp() {
+        super.setUp()
+        sut = StringCalculator()
     }
 }

@@ -1,6 +1,6 @@
-public struct StringCalculatorKata {
-    public private(set) var text = "Hello, World!"
+public class StringCalculator {
 
-    public init() {
+    func add(_ str: String) -> Int {
+        return 0
     }
 }
