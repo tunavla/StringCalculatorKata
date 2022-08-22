@@ -58,6 +58,10 @@ final class StringCalculatorTests: XCTestCase {
         }
     }
 
+    func test_stringContain2_1001_returnErrorWithNumbers() throws {
+        XCTAssertEqual(try sut.add("1001,2"), 2)
+    }
+
     private func generateBigLine(_ number: Int,_ count: Int) -> String {
         var result = ""
         for _ in 0..<count {
