@@ -29,20 +29,30 @@ extension String {
     }
 
     func findNegative() -> String? {
-        var result: String?
+        var result: [String?] = []
 
         forLoop: for char in self {
             if char == "-" {
-                result = "-"
-            } else if char.isInt, result != nil {
-                result?.append(char)
-            } else if !char.isInt, result == "-" {
-                result = nil
-            } else if !char.isInt, (result?.count ?? 0) > 1 {
-                break forLoop
+                result.append("-")
+            } else if char.isInt {
+                if let last = result.last,
+                   let lastValue = last
+                {
+                    let newValue = lastValue + String(char)
+                    result.removeLast()
+                    result.append(newValue)
+                }
+            } else if !char.isInt, result.last == "-" {
+                result.removeLast()
+            } else if !char.isInt,
+                let last = result.last ?? "",
+               last.count > 1
+            {
+                result.append(nil)
             }
         }
-        return result
+        let resultString = result.compactMap { $0 }.joined(separator: ",")
+        return resultString.isEmpty ? nil : resultString
     }
 
 }

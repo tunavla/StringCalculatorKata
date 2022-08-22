@@ -39,13 +39,23 @@ final class StringCalculatorTests: XCTestCase {
         XCTAssertEqual(try sut.add("//;\n1;2"), 3)
     }
 
-    func test_stringContainNegativeNumber_returnErrorWithNumbers() throws {
+    func test_stringContainOneNegativeNumber_returnErrorWithNumbers() throws {
         let result = "Negatives not allowed: -1"
         do {
             _ = try sut.add("-1,2")
         } catch StringCalculatorError.containNegative(let message){
             XCTAssertEqual(message, result)
         } 
+    }
+
+    func test_stringContainFewNegativeNumber_returnErrorWithNumbers() throws {
+        let result = "Negatives not allowed: -4,-5"
+        let string = "2,-4,3,-5"
+        do {
+            _ = try sut.add(string)
+        } catch StringCalculatorError.containNegative(let message){
+            XCTAssertEqual(message, result)
+        }
     }
 
     private func generateBigLine(_ number: Int,_ count: Int) -> String {
