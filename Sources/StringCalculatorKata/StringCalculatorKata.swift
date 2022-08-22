@@ -12,7 +12,7 @@ public class StringCalculator {
             throw StringCalculatorError
                 .containNegative("Negatives not allowed: " + negativeNumber)
         }
-        let subStr = str.components(separatedBy:  CharacterSet.decimalDigits.inverted)
+        let subStr = str.components(separatedBy: CharacterSet.decimalDigits.inverted)
 
         return subStr
             .map { $0.intValue }
@@ -31,19 +31,21 @@ public class StringCalculator {
         for char in str {
             if char == "-" {
                 result.append("-")
-            } else if let last = result.last {
-                if char.isInt {
-                    if let lastValue = last {
-                        let newValue = lastValue + String(char)
-                        result.removeLast()
-                        result.append(newValue)
-                    }
-                } else {
-                    if last == "-" {
-                        result.removeLast()
-                    } else if (last ?? "").count > 1 {
-                        result.append(nil)
-                    }
+                continue
+            }
+            guard let last = result.last,
+                  let lastValue = last
+            else { continue }
+
+            if char.isNumber {
+                let newValue = lastValue + String(char)
+                result.removeLast()
+                result.append(newValue)
+            } else {
+                if last == "-" {
+                    result.removeLast()
+                } else if (last ?? "").count > 1 {
+                    result.append(nil)
                 }
             }
         }
@@ -60,10 +62,4 @@ private extension String {
         Int(self) != nil
     }
 
-}
-
-extension Character {
-    var isInt: Bool {
-        Int(String(self)) != nil
-    }
 }
