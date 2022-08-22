@@ -7,4 +7,8 @@ final class StringCalculatorTests: XCTestCase {
         super.setUp()
         sut = StringCalculator()
     }
+
+    func test_addEmpty_returnZero() {
+        XCTAssertEqual(sut.add(""), 0)
+    }
 }
