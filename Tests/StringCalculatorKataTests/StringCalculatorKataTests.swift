@@ -16,4 +16,8 @@ final class StringCalculatorTests: XCTestCase {
         XCTAssertEqual(sut.add("1"), 1)
         XCTAssertEqual(sut.add("2"), 2)
     }
+
+    func test_addTwoNumbers_returnSum() {
+        XCTAssertEqual(sut.add("1,2"), 3)
+    }
 }
