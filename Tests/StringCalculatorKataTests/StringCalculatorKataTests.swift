@@ -35,6 +35,10 @@ final class StringCalculatorTests: XCTestCase {
         XCTAssertEqual(sut.add("1,2,3\n4"), 10)
     }
 
+    func test_stringWithDelimiters_returnSum() {
+        XCTAssertEqual(sut.add("//;\n1;2"), 3)
+    }
+
 
 
     private func generateBigLine(_ number: Int,_ count: Int) -> String {
