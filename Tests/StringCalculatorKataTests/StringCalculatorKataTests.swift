@@ -20,13 +20,6 @@ final class StringCalculatorTests: XCTestCase {
     func test_addTwoNumbers_returnSum() {
         XCTAssertEqual(sut.add("1,2"), 3)
     }
-
-    func test_addNumeralNumbers_returnSum() {
-        XCTAssertEqual(sut.add("1,2,3,4"), 10)
-        XCTAssertEqual(sut.add("5,5,5,5,5,5,5,5,5,5,5,5,5,5"), 70)
-        XCTAssertEqual(sut.add("1,1,1,1,1,1,1"), 7)
-    }
-
     func test_addHugeCountOfNumbers_returnSum() {
         let number = 15
         let count = 150
@@ -34,6 +27,10 @@ final class StringCalculatorTests: XCTestCase {
         let result = number * count
 
         XCTAssertEqual(sut.add(input), result)
+    }
+
+    func test_addNumbersSeparationByNewLine_returnSum() {
+        XCTAssertEqual(sut.add("1\n2,3,4"), 10)
     }
 
 
