@@ -8,6 +8,7 @@ public class StringCalculator {
     let maxNumber = 1_000
 
     func add(_ str: String) throws -> Int {
+        guard !str.isEmpty else { return -1 }
         if let negativeNumber = findNegative(str) {
             throw StringCalculatorError
                 .containNegative("Negatives not allowed: " + negativeNumber)

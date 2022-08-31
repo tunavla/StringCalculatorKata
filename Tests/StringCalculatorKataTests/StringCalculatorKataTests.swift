@@ -8,18 +8,19 @@ final class StringCalculatorTests: XCTestCase {
         sut = StringCalculator()
     }
 
-    func test_addEmpty_returnZero() throws {
-        XCTAssertEqual(try sut.add(""), 0)
+    func test_addEmpty_returnMinusOne() throws {
+        XCTAssertEqual(try sut.add(""), -1)
     }
 
     func test_addOneNumber_returnThisNumber() throws {
         XCTAssertEqual(try sut.add("1"), 1)
-        XCTAssertEqual(try sut.add("2"), 2)
     }
 
     func test_addTwoNumbers_returnSum() throws {
         XCTAssertEqual(try sut.add("1,2"), 3)
+        XCTAssertEqual(try sut.add("1,"), 1)
     }
+
     func test_addHugeCountOfNumbers_returnSum() throws {
         let number = 15
         let count = 150
@@ -30,9 +31,10 @@ final class StringCalculatorTests: XCTestCase {
     }
 
     func test_addNumbersSeparationByNewLine_returnSum() throws {
-        XCTAssertEqual(try sut.add("1\n2,3,4"), 10)
-        XCTAssertEqual(try sut.add("1,2\n3,4"), 10)
         XCTAssertEqual(try sut.add("1,2,3\n4"), 10)
+        XCTAssertEqual(try sut.add("\n1,2,3,4"), 10)
+        XCTAssertEqual(try sut.add("1,2\n,3,4"), 10)
+        XCTAssertEqual(try sut.add("1,2,3,4\n"), 10)
     }
 
     func test_stringWithDelimiters_returnSum() throws {
